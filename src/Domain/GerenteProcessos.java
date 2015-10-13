@@ -64,8 +64,7 @@ public class GerenteProcessos {
     }
     
     public void executar(IEscalonamentoService escalonamento){
-        if(escalonamento == null) return;
-        
+        if(escalonamento == null) return;        
         escalonamento.executar(this.ProcessoList);        
     }
 }
