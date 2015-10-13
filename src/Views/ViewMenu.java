@@ -15,7 +15,7 @@ public class ViewMenu {
     public void menuPrincipal(){
         System.out.println("");
         System.out.println("");
-        System.out.println("Menu Principal");
+        System.out.println("..::Menu Principal::..");
         System.out.println("1 - Adicionar processo.");
         System.out.println("2 - Executar processos.");
         System.out.println("3 - Sair.");
@@ -30,20 +30,20 @@ public class ViewMenu {
         System.out.println("");
     }
     
-    public Processo menuCadastroProcesso(){
-        Scanner teclado = new Scanner(System.in);
-        Processo processo = new Processo();
+    public void menuCadastroProcesso(){
         System.out.println("");
         System.out.println("");
         System.out.println("..::Cadastro de Processo::.. ");
         System.out.println("");
-        System.out.println("Informe o nome: ");
-        processo.setNome(teclado.nextLine());
-        System.out.println("Informe a prioridade: ");
-        processo.setPrioridade(teclado.nextInt());
-        System.out.println("Informe o tempo de execução: ");
-        processo.setTempo(teclado.nextInt());
-        
-        return processo;
+    }
+    
+    public void menuEscalonamento(){
+        System.out.println("");
+        System.out.println("");
+        System.out.println("..::Menu Escalonamento::..");
+        System.out.println("");
+        System.out.println("1 - Fifo.");
+        System.out.println("2 - Circular.");
+        System.out.println("Informe a ação desejada: ");
     }
 }

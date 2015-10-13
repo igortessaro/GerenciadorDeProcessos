@@ -4,6 +4,7 @@ import Service.IEscalonamentoService;
 import Views.ViewMenu;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class GerenteProcessos {
     public GerenteProcessos(){
@@ -49,6 +50,22 @@ public class GerenteProcessos {
     
     public void adicionarProcesso(){
         Views.ViewMenu view =  new ViewMenu();
-        this.ProcessoList.add(view.menuCadastroProcesso());
+        Scanner teclado = new Scanner(System.in);
+        Processo processo = new Processo();
+        view.menuCadastroProcesso();
+        System.out.println("Informe o nome: ");
+        processo.setNome(teclado.nextLine());
+        System.out.println("Informe a prioridade: ");
+        processo.setPrioridade(teclado.nextInt());
+        System.out.println("Informe o tempo de execução: ");
+        processo.setTempo(teclado.nextInt());
+        
+        this.ProcessoList.add(processo);
+    }
+    
+    public void executar(IEscalonamentoService escalonamento){
+        if(escalonamento == null) return;
+        
+        escalonamento.executar(this.ProcessoList);        
     }
 }

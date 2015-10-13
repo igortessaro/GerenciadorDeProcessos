@@ -1,6 +1,9 @@
 package Main;
 
 import Domain.GerenteProcessos;
+import Service.CircularService;
+import Service.FifoService;
+import Service.IEscalonamentoService;
 import Views.ViewMenu;
 import java.util.Scanner;
 
@@ -27,10 +30,36 @@ public class Init {
                     gerenciador.adicionarProcesso();
                     break;
                 case 2:
-                    System.out.println("Executar processos selecionado...");
+                    gerenciador.executar(Init.menuEscalonamento());
                     break;
             }
 
         } while (opcaoMenuPrincipal != 3);
+    }
+
+    public static IEscalonamentoService menuEscalonamento() {
+        Scanner teclado = new Scanner(System.in);
+        ViewMenu view = new ViewMenu();
+        int opcao = 0;
+        boolean opcaoValida = false;
+
+        do {
+            view.menuEscalonamento();
+            opcao = teclado.nextInt();
+            
+            if(opcao > 0 && opcao < 3)
+                opcaoValida = true;
+            else
+                view.mensagemErro("Opção inválida!");
+        } while (!opcaoValida);
+        
+        switch(opcao){
+            case 1:
+                return new FifoService();
+            case 2:
+                return new CircularService();
+            default:
+                return null;
+        }
     }
 }
