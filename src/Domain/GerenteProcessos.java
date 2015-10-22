@@ -58,7 +58,7 @@ public class GerenteProcessos {
         System.out.println("Informe a prioridade: ");
         processo.setPrioridade(teclado.nextInt());
         System.out.println("Informe o tempo de execução: ");
-        processo.setTempo(teclado.nextInt());
+        processo.setTempoExecucao(teclado.nextInt());
         
         this.ProcessoList.add(processo);
     }

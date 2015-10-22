@@ -1,10 +1,7 @@
 package Service;
 
 import Domain.Processo;
-import java.util.Collections;
 import java.util.List;
-import Core.CustomComparator;
-import java.util.Comparator;
 
 public class FifoService implements IEscalonamentoService {
 
@@ -13,36 +10,38 @@ public class FifoService implements IEscalonamentoService {
         System.out.println("");
         System.out.println("Iniciando execução com escalonamento FIFO.");
 
-        Collections.sort(processoList, new Comparator<Processo>() {
-            @Override
-            public int compare(Processo processo, Processo processoCompar) {
-                int startComparison = this.compare(processo.getPrioridade(), processoCompar.getPrioridade());
-                return startComparison != 0 ? startComparison
-                        : this.compare(processo.getPrioridade(), processoCompar.getPrioridade());
-            }
-
-            private int compare(int a, int b) {
-                return a < b ? -1
-                        : a > b ? 1
-                                : 0;
-            }
-        });
+        int tempoEmExecucao = 0;
+        int tempoDeEsperaTotal = 0;
+        int mediaTempoEspera = 0;
 
         for (Processo processo : processoList) {
             if (processo == null) {
                 continue;
             }
 
+            processo.setTempoEspera(tempoEmExecucao);
+
             System.out.println("Executando o processo: " + processo.getNome());
             System.out.println("Com prioridade " + processo.getPrioridade());
+            System.out.println("Com tempo de espera " + processo.getTempoEspera() + " segundos.");
 
-            for (int i = 0; i < processo.getTempo(); i++) {
-                System.out.println("Tempo em execução " + i + " segundos...");
+            for (int i = 0; i < processo.getTempoExecucao(); i++) {
+                int qtdSegundos = i + 1;
+                System.out.println("Tempo em execução " + qtdSegundos + " segundos...");
             }
 
             System.out.println("Fim do processo...!");
             System.out.println("");
             System.out.println("");
+
+            tempoEmExecucao += processo.getTempoExecucao();
+            tempoDeEsperaTotal += processo.getTempoEspera();
         }
+
+        if (processoList.size() > 0) {
+            mediaTempoEspera = tempoDeEsperaTotal / processoList.size();
+        }
+
+        System.out.println("Tempo médio de espera: " + mediaTempoEspera);
     }
 }
